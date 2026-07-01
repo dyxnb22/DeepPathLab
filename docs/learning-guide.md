@@ -1,4 +1,10 @@
-# DeepPath Lab Learning Guide
+# DeepPath Lab 学习指南
+
+本指南汇总 15 个模块的核心概念、推荐运行命令与学习顺序。每个模块都是独立小项目：先读 `notes.md`，再跑 `from_scratch/`，最后做 `experiments/`。
+
+**快速自检**：在仓库根目录运行 `python3 scripts/verify_all.py`（约 1–2 分钟，15/15 通过即环境正常）。
+
+---
 
 Master reference for all 15 modules: what each teaches, how to run it, and what to complete first.
 

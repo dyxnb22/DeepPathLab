@@ -8,6 +8,14 @@ This repository is not a textbook mirror. It uses public resources such as Dive 
 
 ## Learning Workflow
 
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+python3 scripts/verify_all.py   # 15/15 模块快速自检
+```
+
+Then follow each module's `README.md`, or use the full walkthrough in [docs/learning-guide.md](docs/learning-guide.md).
+
 ```text
 Read reference chapter
 -> write personal notes
@@ -102,7 +110,8 @@ See the supporting docs:
 - [docs/learning-sources.md](/Users/diaoyuxuan/DeepPathLab/docs/learning-sources.md)
 - [docs/d2l-mapping.md](/Users/diaoyuxuan/DeepPathLab/docs/d2l-mapping.md)
 - [docs/agent-execution.md](/Users/diaoyuxuan/DeepPathLab/docs/agent-execution.md)
-- [docs/roadmap.md](/Users/diaoyuxuan/DeepPathLab/docs/roadmap.md)
+- [docs/learning-guide.md](docs/learning-guide.md) — 15 模块运行命令与学习路径
+- [lib/README.md](lib/README.md) — 共享工具说明
 - [docs/module-template.md](/Users/diaoyuxuan/DeepPathLab/docs/module-template.md)
 - [docs/report-template.md](/Users/diaoyuxuan/DeepPathLab/docs/report-template.md)
 

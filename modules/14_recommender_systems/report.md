@@ -37,6 +37,21 @@ MF 训练 loss 持续下降，但在此稀疏小数据集上未超越简单基�
 
 推荐系统的核心是 user/item 隐向量分解；工程上还需处理冷启动与隐式反馈。
 
+## 核心知识点回顾
+
+- 协同过滤：从 user-item 交互矩阵学习低维隐因子
+- 预测 \(\hat{r}_{ui} = P_u \cdot Q_i\)；仅在观测评分上做 SGD
+- 流行度/全局均值是强基线；小稀疏数据上 MF 未必立刻胜出
+- Top-K：用内积排序未交互物品
+- 工程扩展：bias 项、隐式反馈、冷启动
+
+## 推荐复习命令
+
+```bash
+python3 modules/14_recommender_systems/from_scratch/matrix_factorization.py
+python3 modules/14_recommender_systems/experiments/baseline_comparison.py
+```
+
 ## 下一步
 
 - 尝试 MovieLens 子集或更高密度合成数据

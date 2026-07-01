@@ -43,6 +43,21 @@ python3 modules/15_reinforcement_learning/experiments/epsilon_decay.py
 
 RL 的核心是 trial-and-error + bootstrap 更新；表格法是小规模理解 Q-learning 的最佳起点。
 
+## 核心知识点回顾
+
+- MDP：状态、动作、奖励、折扣 \(\gamma\)、episode 终止
+- Q-learning：\(Q(s,a) \leftarrow Q(s,a) + \alpha(r + \gamma \max_{a'} Q(s',a') - Q(s,a))\)
+- \(\epsilon\)-greedy 平衡探索与利用；衰减 \(\epsilon\) 是常见策略
+- 表格法仅适用于小离散状态空间；大状态需函数逼近（DQN 等）
+- 回报 = 累积折扣奖励；步惩罚让策略偏好更短路径
+
+## 推荐复习命令
+
+```bash
+python3 modules/15_reinforcement_learning/from_scratch/q_learning.py
+python3 modules/15_reinforcement_learning/experiments/epsilon_decay.py
+```
+
 ## 路线图完成
 
 Module 01–15 覆盖从 autograd 到 NLP 微调、推荐、RL 的完整学习路径。
