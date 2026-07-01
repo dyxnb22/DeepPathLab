@@ -1,0 +1,63 @@
+---
+description: DeepPath Lab project rules for Cursor agents
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+# DeepPath Lab Cursor Rules
+
+## Repository Purpose
+
+This repository is a project-based deep learning learning lab.
+
+The goal is to build original:
+
+- notes,
+- reproductions,
+- from-scratch implementations,
+- experiments,
+- reports.
+
+Do not turn the repository into a mirror of external learning resources.
+
+## Reference Policy
+
+- External resources such as D2L, CS231n, CS224N, micrograd, and Zero to Hero are references only.
+- Never copy textbook prose, figures, or large code excerpts into the repository.
+- Summaries must be written in original language.
+
+## Module Workflow
+
+For each module, follow this order:
+
+1. read linked references,
+2. write or improve `notes.md`,
+3. add a minimal artifact in `reproduce/`,
+4. add a minimal artifact in `from_scratch/`,
+5. add an experiment or diagnostic in `experiments/`,
+6. update `report.md`.
+
+## Default Style
+
+- Prefer simple scripts over large frameworks.
+- Prefer plain Markdown over notebook-only work.
+- Prefer small, reviewable steps.
+- Prefer numerical sanity checks for math-heavy code.
+- Prefer documenting limitations and open questions honestly.
+
+## Execution Priority
+
+- Finish modules `01_preliminaries_autograd`, `02_linear_models`, `03_mlp`, and `04_cnn` before creating later modules.
+- Use `docs/d2l-mapping.md` for scope and outputs.
+- Use `TASKS.md` as the default execution queue.
+
+## Before Claiming Completion
+
+A module is not done unless it includes:
+
+- original notes,
+- a reproduction artifact,
+- a from-scratch artifact,
+- an experiment or diagnostic,
+- a report with concrete takeaways.
