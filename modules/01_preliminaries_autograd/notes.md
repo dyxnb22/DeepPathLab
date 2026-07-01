@@ -1,11 +1,68 @@
-# Notes
+# 笔记：自动微分与计算图
 
-Write original notes here.
+## 核心问题
 
-Suggested topics:
+神经网络训练需要计算损失函数对每个参数的梯度。手动求导在复杂模型上不可行，自动微分（autograd）通过记录计算图并在反向传播时应用链式法则来求解梯度。
 
-- tensors and gradients
-- chain rule intuition
-- computational graph structure
-- backward pass mechanics
-- gradient checking
+## 计算图
+
+每个标量运算产生一个图节点。节点保存：
+
+- `data`：前向传播的值
+- `grad`：反向传播累积的梯度
+- `_prev`：产生该节点的子节点
+- `_backward`：该节点对子节点梯度的贡献规则
+
+例如 `f = relu(a * b + c)` 的图结构：
+
+```text
+a ──┐
+    ├── (*) ── d ──┐
+b ──┘              ├── (+) ── e ── relu ── f
+c ─────────────────┘
+```
+
+## 链式法则
+
+若 `f` 依赖 `x`，而 `x` 又依赖 `w`，则：
+
+\[
+\frac{\partial f}{\partial w} = \frac{\partial f}{\partial x} \cdot \frac{\partial x}{\partial w}
+\]
+
+反向传播从输出节点开始，沿图的逆拓扑序将梯度逐层传回。每个节点收到上游梯度 `out.grad`，按局部导数规则分配给子节点。
+
+## 为什么需要逆拓扑序
+
+前向传播按依赖顺序计算：先算子节点，再算父节点。反向传播必须反过来：先处理输出，再处理输入。拓扑排序保证每个节点在被访问时，其所有下游节点的梯度已经就绪。
+
+若顺序错误，子节点可能还没收到完整梯度，导致结果错误。
+
+## 梯度累积
+
+当同一变量在图中出现多次（如 `f = a*b + b*c` 中的 `b`），它对损失的贡献有多条路径。`b.grad` 必须**累加**各路径传来的梯度，而不是覆盖。
+
+实现上，每个 `_backward` 使用 `+=` 而非 `=` 来更新子节点梯度。
+
+## 各操作的局部梯度
+
+| 操作 | 前向 | 反向 |
+|------|------|------|
+| `c = a + b` | `a + b` | `da = dc`, `db = dc` |
+| `c = a * b` | `a * b` | `da = b * dc`, `db = a * dc` |
+| `c = a ** n` | `a^n` | `da = n * a^(n-1) * dc` |
+| `c = relu(a)` | `max(0,a)` | `da = (a>0) ? dc : 0` |
+
+## 梯度检查
+
+实现后必须用有限差分验证：
+
+\[
+\frac{\partial f}{\partial x} \approx \frac{f(x+\epsilon) - f(x-\epsilon)}{2\epsilon}
+\]
+
+相对误差应小于 `1e-5`。这是发现 `_backward` 写错的唯一可靠方法。
+
+## 局限与下一步
+
+当前实现仅支持标量。真实神经网络需要张量运算和广播。Module 03 将用矩阵版手写 backprop 与标量 autograd 对照，加深对逐层梯度传播的理解。

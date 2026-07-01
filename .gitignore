@@ -23,6 +23,9 @@ outputs/
 runs/
 artifacts/
 
+# Datasets
+data/
+
 # Editors
 .vscode/
 .idea/
