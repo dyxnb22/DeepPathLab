@@ -1,4 +1,10 @@
-"""Gradient consistency check: numpy backprop vs scalar autograd on a tiny MLP."""
+"""梯度一致性检查：numpy 矩阵 backprop vs Module 01 标量 autograd
+
+在 2-2-3 小网络上，对单样本用 MSE-on-logits 损失（非 CE，便于标量图实现），
+逐参数比较 mlp_numpy.MLP.backward 与 Value.backward 的梯度。
+
+通过本脚本可确认：手写矩阵公式与展开计算图是同一套链式法则。
+"""
 
 from __future__ import annotations
 
@@ -111,7 +117,7 @@ def autograd_grads_single_sample(
 
     for n in nodes.values():
         n.zero_grad()
-    loss.backward()
+    loss.backward()  # 标量图逆拓扑反传
     return {k: nodes[k].grad for k in params}
 
 

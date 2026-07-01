@@ -16,13 +16,35 @@
 
 ## 训练
 
-在观测到的评分上最小化平方误差 + 正则化，用 SGD 交替更新 \(P\) 和 \(Q\)。
+在观测到的评分上最小化平方误差 + L2 正则化，用 SGD 逐条更新 \(P\) 和 \(Q\)：
+
+\[
+P_u \leftarrow P_u + \eta \left( e_{ui} Q_i - \lambda P_u \right)
+\]
+\[
+Q_i \leftarrow Q_i + \eta \left( e_{ui} P_u - \lambda Q_i \right)
+\]
+
+其中 \(e_{ui} = r_{ui} - P_u \cdot Q_i\) 是预测误差。
 
 ## 基线
 
 **Popularity / 全局均值**：预测所有缺失值为训练集平均分。简单但忽略个性化。
 
+## 本模块脚本
+
+| 路径 | 作用 |
+|------|------|
+| `from_scratch/matrix_factorization.py` | SGD 矩阵分解核心 |
+| `rating_data.py` | 合成评分矩阵生成 |
+| `experiments/baseline_comparison.py` | 全局均值 vs MF 对照 |
+
+```bash
+python3 modules/14_recommender_systems/experiments/baseline_comparison.py
+```
+
 ## 局限
 
 - 本模块用合成数据演示机制
 - 真实系统需处理冷启动、隐式反馈、大规模稀疏矩阵
+- 小稀疏矩阵上 MF 未必优于简单基线，需更大规模数据验证

@@ -35,6 +35,33 @@
 - [x] LeNet 达到合理 baseline
 - [x] 错误分析回答类别混淆问题
 
+## 核心知识点回顾
+
+- 卷积 = 局部连接 + 权重共享；输出尺寸由 L、K、S、P 决定
+- 多通道输出 = 对各输入通道卷积后沿通道求和
+- MaxPool 降采样；LeNet = 两段 Conv-Pool + FC 头
+- 前向可手写验证；完整 conv backward 复杂，生产训练交给 autograd
+- 错误模式反映类间视觉相似性，而不仅是「准确率一个数」
+
+## 推荐复习命令
+
+```bash
+# 前向数值对照（应 PASSED）
+python modules/04_cnn/from_scratch/conv2d.py
+
+# 反向概念速览
+python modules/04_cnn/from_scratch/conv_backward.py
+
+# 训练并保存权重（后续实验依赖）
+python modules/04_cnn/reproduce/lenet_fashion_mnist.py
+
+# 第一层核与特征图
+python modules/04_cnn/experiments/feature_maps.py
+
+# 按类准确率与混淆样本
+python modules/04_cnn/experiments/error_analysis.py
+```
+
 ## CNN vs MLP
 
 同等参数量下，CNN 利用空间结构先验，在图像任务上远优于展平后的 MLP。本模块未实现 MLP 对照实验，但 Module 03 的 MLP 在图像上表现差是预期结论。

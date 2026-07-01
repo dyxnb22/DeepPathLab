@@ -1,4 +1,8 @@
-"""Naive 2D convolution and max pooling from scratch."""
+"""Naive 2D 卷积与最大池化（Module 04 from_scratch）
+
+教学用四重循环实现 conv2d / conv2d_multi / max_pool2d，便于对照笔记中的输出尺寸公式。
+sanity_check_against_torch() 与 F.conv2d 比对，确认前向实现正确；训练用 reproduce/ 中 PyTorch。
+"""
 
 from __future__ import annotations
 
@@ -24,6 +28,7 @@ def conv2d(
     out_h = (h - kh) // stride + 1
     out_w = (w - kw) // stride + 1
     out = np.zeros((out_h, out_w))
+    # 在滑动窗口位置做 patch 与 kernel 逐元素乘再求和
     for i in range(out_h):
         for j in range(out_w):
             patch = x[i * stride : i * stride + kh, j * stride : j * stride + kw]
@@ -46,6 +51,7 @@ def conv2d_multi(
     outputs = []
     for oc in range(kernels.shape[0]):
         channel_sum = np.zeros(conv2d(x[0], kernels[oc, 0], stride, padding).shape)
+        # 每个输出通道：对所有输入通道卷积后累加
         for ic in range(x.shape[0]):
             channel_sum += conv2d(x[ic], kernels[oc, ic], stride, padding)
         outputs.append(channel_sum)

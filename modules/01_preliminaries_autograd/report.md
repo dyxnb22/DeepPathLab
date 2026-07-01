@@ -35,6 +35,27 @@
 - [x] 能 trace 3 层表达式的 backward 顺序
 - [x] 笔记解释了逆拓扑序的必要性
 
+## 核心知识点回顾
+
+- 自动微分 = 前向建图 + 反向按拓扑序应用局部链式法则
+- 每个运算节点的 `_backward` 负责把 `out.grad` 按局部导数分给子节点
+- 共享叶子变量必须梯度累加（`+=`）
+- 数值有限差分是验证手写反向的「金标准」，不能省略
+- 标量引擎是理解 PyTorch `loss.backward()` 的显微镜，而非生产训练工具
+
+## 推荐复习命令
+
+```bash
+# 数值梯度三连测
+python modules/01_preliminaries_autograd/experiments/gradient_check.py
+
+# 观察拓扑序与 b 的双路径累积
+python modules/01_preliminaries_autograd/experiments/graph_viz.py
+
+# 与 PyTorch 标量梯度对照
+python modules/01_preliminaries_autograd/reproduce/pytorch_autograd_check.py
+```
+
 ## 收获
 
 - `_backward` 闭包必须捕获正确的局部变量（如 `other.data`），否则梯度会引用错误的值
@@ -48,4 +69,4 @@
 
 ## 下一步
 
-Module 02 将用 NumPy 实现线性模型训练；可选地用本引擎做单样本 backward 对照。
+Module 02 将用 NumPy 实现线性模型训练；可选地用本引擎对单样本 MSE 做 backward 对照。

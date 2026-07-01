@@ -33,6 +33,23 @@
 - Positional encoding 是 transformer 不可缺少的部分
 - Self-attention 将 O(T) 递推路径缩短为 O(1) 直接访问
 
+## 核心知识点回顾
+
+- **Attention**：\(\text{softmax}(QK^T/\sqrt{d_k})V\)，一步连接所有位置对
+- **缩放**：\(\sqrt{d_k}\) 防止高维点积使 softmax 饱和、梯度消失
+- **Self-attention**：Q/K/V 同源，动态权重替代固定递推
+- **Transformer block**：Attention + FFN，各带残差与 LayerNorm（延续 Module 05 skip 思想）
+- **位置编码**：弥补 attention 的置换不变性
+
+## 推荐复习命令
+
+```bash
+python modules/08_attention_transformer/from_scratch/attention.py
+python modules/08_attention_transformer/from_scratch/transformer_block.py
+python modules/08_attention_transformer/reproduce/mini_transformer.py
+python modules/08_attention_transformer/experiments/attention_viz.py
+```
+
 ## 下一步
 
 Module 09 Optimization：跨模块优化器对比；Module 11 NLP Pretraining。

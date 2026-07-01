@@ -1,4 +1,10 @@
-"""Minimal transformer encoder block from scratch (numpy, single-head)."""
+"""Minimal transformer encoder block from scratch (NumPy, single-head).
+
+Architecture (Pre-LN style simplified as post-residual LN here):
+    x -> SelfAttention -> Add&Norm -> FFN -> Add&Norm -> out
+
+Run: python modules/08_attention_transformer/from_scratch/transformer_block.py
+"""
 
 from __future__ import annotations
 
@@ -12,6 +18,7 @@ from attention import attention
 
 
 def layer_norm(x: np.ndarray, gamma: np.ndarray, beta: np.ndarray, eps: float = 1e-5) -> np.ndarray:
+    """Layer normalization over the last dimension (per-token)."""
     mean = x.mean(axis=-1, keepdims=True)
     var = x.var(axis=-1, keepdims=True)
     return gamma * (x - mean) / np.sqrt(var + eps) + beta
@@ -21,28 +28,36 @@ def transformer_encoder_block(
     x: np.ndarray,
     params: dict[str, np.ndarray],
 ) -> tuple[np.ndarray, np.ndarray]:
-    """One encoder block: self-attention + FFN with residuals.
+    """One encoder block: self-attention + FFN with residual connections.
 
-    x: (seq_len, d_model)
-  Returns: output, attention_weights
+    Args:
+        x: (seq_len, d_model)
+        params: W_q/k/v/o, FFN weights, LayerNorm gamma/beta
+
+    Returns:
+        output: (seq_len, d_model)
+        weights: (seq_len, seq_len) attention weights from first sub-layer
     """
     d_model = x.shape[-1]
-    # Self-attention
+
+    # --- Sub-layer 1: Self-Attention + residual + LayerNorm ---
     q = x @ params["W_q"]
     k = x @ params["W_k"]
     v = x @ params["W_v"]
     attn_out, weights = attention(q, k, v)
-    attn_out = attn_out @ params["W_o"]
-    x = layer_norm(x + attn_out, params["ln1_g"], params["ln1_b"])
+    attn_out = attn_out @ params["W_o"]  # output projection
+    x = layer_norm(x + attn_out, params["ln1_g"], params["ln1_b"])  # skip from Module 05
 
-    # FFN
-    h = np.maximum(0, x @ params["W_ff1"] + params["b_ff1"])
+    # --- Sub-layer 2: FFN + residual + LayerNorm ---
+    h = np.maximum(0, x @ params["W_ff1"] + params["b_ff1"])  # ReLU FFN
     ff = h @ params["W_ff2"] + params["b_ff2"]
     x = layer_norm(x + ff, params["ln2_g"], params["ln2_b"])
+
     return x, weights
 
 
 def init_transformer_block(d_model: int, d_ff: int, seed: int = 0) -> dict[str, np.ndarray]:
+    """Initialize single-head encoder block parameters."""
     rng = np.random.default_rng(seed)
     s = 0.1
     return {

@@ -4,6 +4,18 @@
 
 在 4×4 GridWorld 上实现 tabular Q-learning，比较探索策略。
 
+## 实现范围
+
+- `from_scratch/gridworld.py` — 网格环境（动作、奖励、终止）
+- `from_scratch/q_learning.py` — ε-greedy + TD 更新
+- `experiments/epsilon_decay.py` — 探索 schedule 对照
+
+## 运行
+
+```bash
+python3 modules/15_reinforcement_learning/experiments/epsilon_decay.py
+```
+
 ## 实验结果
 
 ### Q-learning（600 episodes）
@@ -11,7 +23,7 @@
 - 最终平滑 return：**0.94**（goal reward=1，步惩罚=-0.01）
 - 起始状态最优动作：向下/向右（朝向 goal）
 
-### Epsilon  schedule（20-ep 平均 return）
+### Epsilon schedule（20-ep 平均 return）
 
 | 策略 | Return |
 |------|--------|
@@ -29,7 +41,7 @@
 
 ## 收获
 
-RL 的核心是 trial-and-error +  bootstrap 更新；表格法是小规模理解 Q-learning 的最佳起点。
+RL 的核心是 trial-and-error + bootstrap 更新；表格法是小规模理解 Q-learning 的最佳起点。
 
 ## 路线图完成
 

@@ -1,4 +1,9 @@
-"""Softmax regression from scratch."""
+"""Softmax 多类回归从零实现（Module 02 from_scratch）
+
+流程：logits = XW + b → 数值稳定 softmax → 交叉熵损失 → 对 logits 梯度 (p - y)/n。
+
+本文件是全批量 GD；与 linear_regression.py 共享「线性层 + 手写梯度」范式，但输出为类别概率。
+"""
 
 from __future__ import annotations
 
@@ -7,6 +12,7 @@ import numpy as np
 
 def softmax(logits: np.ndarray) -> np.ndarray:
     """Numerically stable softmax along class axis."""
+    # 减 max 防溢出，不改变 softmax 结果
     shifted = logits - np.max(logits, axis=1, keepdims=True)
     exp_logits = np.exp(shifted)
     return exp_logits / np.sum(exp_logits, axis=1, keepdims=True)
@@ -51,6 +57,7 @@ def train_softmax(
 
         one_hot = np.zeros((n_samples, n_classes))
         one_hot[np.arange(n_samples), y] = 1.0
+        # CE+softmax 合并后对 logits 的梯度（本模块最核心的公式）
         grad_logits = (probs - one_hot) / n_samples
         grad_W = X.T @ grad_logits
         grad_b = np.sum(grad_logits, axis=0)

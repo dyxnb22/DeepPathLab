@@ -1,24 +1,16 @@
-"""Notes and reference for convolution backward pass.
+"""卷积反向传播概念说明（Module 04 from_scratch）
 
-Full conv backward is complex; this module documents the key ideas
-rather than implementing a full training-grade conv backward.
+本文件不实现完整训练级 conv backward，而是记录核心公式与直觉：
+- ∂L/∂x：用翻转后的 kernel 对 grad_output 做 full convolution
+- ∂L/∂W：各输出位置的 input patch 与 grad_output 外积累加
 
-Forward: y = conv(x, W)
-Backward w.r.t. input: conv_backward on grad_output uses flipped kernels (full convolution).
-Backward w.r.t. weights: correlate input with grad_output.
-
-For training, we use PyTorch autograd in reproduce/lenet_fashion_mnist.py.
-The from_scratch conv2d.py focuses on forward pass correctness.
-
-Key insight (im2col):
-Convolution can be expressed as matrix multiplication by unfolding
-input patches into columns, enabling efficient GPU implementation.
+实际 LeNet 训练见 reproduce/lenet_fashion_mnist.py（PyTorch autograd）。
+im2col 将卷积化为矩阵乘，是 GPU 高效实现的基础。
 """
 
 from __future__ import annotations
 
-# This file serves as documentation for conv backward concepts.
-# See notes.md in this module for the full explanation.
+# 详细推导见本模块 notes.md；运行本脚本可快速回顾要点。
 
 CONV_BACKWARD_NOTES = """
 Gradient w.r.t. input (simplified single-channel):

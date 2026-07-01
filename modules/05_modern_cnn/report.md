@@ -43,6 +43,21 @@
 - 公平对比需要匹配参数量、stage 布局和训练设置
 - VGG 的 3×3 堆叠与 ResNet 的 skip 解决的是不同问题（参数效率 vs 优化难度）
 
+## 核心知识点回顾
+
+- **退化**：更深 plain 网络训练误差升高，是优化问题而非单纯过拟合
+- **残差学习**：\(y = \mathcal{F}(x) + x\)，恒等映射对应 \(\mathcal{F} \approx 0\)
+- **梯度高速公路**：skip 路径为 \(\partial L/\partial x\) 提供 +1 项，使极深网络可训练
+- **VGG**：3×3 堆叠在相同感受野下参数更少、非线性更多
+- **架构对比需公平**：参数量、深度、超参一致才有意义
+
+## 推荐复习命令
+
+```bash
+python modules/05_modern_cnn/from_scratch/residual_block.py
+python modules/05_modern_cnn/experiments/plain_vs_residual.py
+```
+
 ## 下一步
 
 Module 06 RNN：理解序列递推与 BPTT 梯度消失。

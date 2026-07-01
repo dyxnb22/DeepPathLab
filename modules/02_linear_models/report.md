@@ -39,6 +39,32 @@
 - [x] 学习率实验有明确观察结论
 - [x] 笔记解释了 softmax 数值稳定
 
+## 核心知识点回顾
+
+- 线性回归：MSE + 闭式解或 GD；梯度与残差成正比
+- Softmax 回归：logits → 稳定 softmax → 交叉熵；logits 梯度为 \((p-y)/n\)
+- 学习率是首个需要系统扫描的超参
+- 线性决策边界无法刻画非线性可分数据（为 MLP 铺垫）
+
+## 推荐复习命令
+
+```bash
+# 闭式解 vs GD 数值对齐
+python modules/02_linear_models/from_scratch/linear_regression.py
+
+# Softmax 分类终点指标
+python modules/02_linear_models/from_scratch/softmax_regression.py
+
+# PyTorch 对照
+python modules/02_linear_models/reproduce/baseline.py
+
+# 学习率敏感性（建议先看终端输出再看 png）
+python modules/02_linear_models/experiments/optimization_sweep.py
+
+# 决策边界可视化
+python modules/02_linear_models/experiments/decision_boundary.py
+```
+
 ## 收获
 
 - 交叉熵 + softmax 的梯度形式 `(p - y)/n` 极大简化了实现
@@ -47,4 +73,4 @@
 
 ## 下一步
 
-在 spiral 数据上测试线性模型失败、MLP 成功的对比。
+在 spiral 数据上测试线性模型失败、MLP 成功的对比（见 Module 03）。

@@ -1,4 +1,8 @@
-"""Simple plotting helpers for training curves and diagnostics."""
+"""Simple plotting helpers for training curves and diagnostics.
+
+Writes PNG files under each module's outputs/ directory.
+Safe for headless runs (figures are closed after save).
+"""
 
 from __future__ import annotations
 

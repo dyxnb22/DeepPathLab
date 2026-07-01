@@ -1,4 +1,8 @@
-"""Synthetic datasets for regression, classification, and MLP experiments."""
+"""Synthetic datasets for regression, classification, and MLP experiments.
+
+All generators use numpy and accept a seed for reproducible experiments
+without external dataset downloads.
+"""
 
 from __future__ import annotations
 

@@ -1,4 +1,8 @@
-"""Numerical gradient checking utilities."""
+"""Numerical gradient checking utilities.
+
+Compare analytic gradients from hand-implemented backward passes
+against central finite differences. Used heavily in Module 01.
+"""
 
 from __future__ import annotations
 

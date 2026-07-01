@@ -1,4 +1,10 @@
-"""Two-layer MLP with manual numpy backpropagation."""
+"""两层 MLP 手写矩阵反向传播（Module 03 from_scratch）
+
+结构：input → Linear → 激活 → Linear → logits；损失为 softmax + 交叉熵。
+forward 缓存 X/z1/a1；backward 从 grad_logits 反传，隐藏层乘 activation'(z1)。
+
+对比 mlp_autograd.py：同一网络可用标量 Value 展开，验证本文件梯度公式。
+"""
 
 from __future__ import annotations
 
@@ -80,9 +86,11 @@ class MLP:
         z1 = self.cache["z1"]
         X = self.cache["X"]
 
+        # 输出层：dL/dW2 = a1^T @ dL/dz2
         self.dW2 = a1.T @ grad_logits
         self.db2 = np.sum(grad_logits, axis=0)
         grad_a1 = grad_logits @ self.W2.T
+        # 隐藏层：链式法则 × 激活局部导数（逐元素）
         grad_z1 = grad_a1 * self.act_deriv(z1)
         self.dW1 = X.T @ grad_z1
         self.db1 = np.sum(grad_z1, axis=0)

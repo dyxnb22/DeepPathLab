@@ -4,6 +4,18 @@
 
 从零实现矩阵分解，对比全局均值基线。
 
+## 实现范围
+
+- `from_scratch/matrix_factorization.py` — SGD 交替更新 P/Q
+- `rating_data.py` — 合成评分矩阵与 mask
+- `experiments/baseline_comparison.py` — popularity vs MF 对照
+
+## 运行
+
+```bash
+python3 modules/14_recommender_systems/experiments/baseline_comparison.py
+```
+
 ## 实验结果
 
 合成评分矩阵（50 users × 40 items，25% 密度）：
@@ -24,3 +36,8 @@ MF 训练 loss 持续下降，但在此稀疏小数据集上未超越简单基�
 ## 收获
 
 推荐系统的核心是 user/item 隐向量分解；工程上还需处理冷启动与隐式反馈。
+
+## 下一步
+
+- 尝试 MovieLens 子集或更高密度合成数据
+- 加入 bias 项（user/item/global bias）

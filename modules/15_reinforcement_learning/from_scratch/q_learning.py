@@ -1,4 +1,8 @@
-"""Tabular Q-learning from scratch."""
+"""Tabular Q-learning from scratch.
+
+Off-policy TD control: learns Q(s,a) without knowing transition dynamics.
+Uses epsilon-greedy exploration and max over next-state actions for bootstrap.
+"""
 
 from __future__ import annotations
 
@@ -8,6 +12,7 @@ from gridworld import GridWorld
 
 
 def epsilon_greedy(Q: np.ndarray, state: int, epsilon: float, rng: np.random.Generator) -> int:
+    """Explore randomly with prob epsilon; otherwise exploit best known action."""
     if rng.random() < epsilon:
         return int(rng.integers(0, Q.shape[1]))
     return int(Q[state].argmax())
@@ -33,6 +38,7 @@ def q_learning(
             action = epsilon_greedy(Q, state, epsilon, rng)
             next_state, reward, done = env.step(action)
             best_next = Q[next_state].max()
+            # TD target: r + gamma * max_a' Q(s', a')  (zero bootstrap at terminal)
             Q[state, action] += alpha * (reward + gamma * best_next * (not done) - Q[state, action])
             state = next_state
             total_reward += reward

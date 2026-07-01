@@ -41,6 +41,21 @@
 - 单步输出 loss 不足以演示 BPTT；需要跨时间依赖任务
 - Vanilla RNN 长程依赖能力有限，引出 LSTM/GRU（Module 07）
 
+## 核心知识点回顾
+
+- **递推**：\(h_t = \tanh(W_{xh} x_t + W_{hh} h_{t-1} + b_h)\)，权重跨时间步共享
+- **BPTT**：时间展开 + 反向传播；\(W_{hh}\) 梯度含多时间步贡献之和
+- **梯度消失**：\(\partial h_T/\partial h_k\) 含 \(\prod \text{diag}(1-h^2) W_{hh}\)，长序列时指数衰减
+- **Copy 任务**：强制长程依赖，比字符 LM 更适合观察 BPTT 行为
+- **局限**：vanilla RNN 长程记忆弱 → 引出 Module 07 门控机制
+
+## 推荐复习命令
+
+```bash
+python modules/06_rnn/from_scratch/rnn.py
+python modules/06_rnn/experiments/sequence_length_gradient.py
+```
+
 ## 下一步
 
 Module 07：门控机制与 copy problem 长程依赖实验。

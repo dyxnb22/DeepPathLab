@@ -1,4 +1,10 @@
-"""GRU cell forward pass from scratch (numpy)."""
+"""GRU cell from scratch (NumPy) — 单步前向与门控检查.
+
+GRU merges LSTM's input/forget gates into update gate z_t,
+and uses reset gate r_t to control how much past state enters the candidate.
+
+Run: python modules/07_lstm_gru/from_scratch/gru_cell.py
+"""
 
 from __future__ import annotations
 
@@ -22,11 +28,15 @@ def gru_step(
     W_hh: np.ndarray,
     bh: np.ndarray,
 ) -> tuple[np.ndarray, dict[str, np.ndarray]]:
-    """Single GRU timestep: reset and update gates."""
+    """Single GRU timestep — 单时间步 GRU 前向.
+
+    r_t: reset gate  — r_t ⊙ h_{t-1} 控制历史参与候选更新的程度
+    z_t: update gate — h_t = (1-z_t)*h_{t-1} + z_t*h_tilde，新旧插值
+    """
     r_t = sigmoid(W_xr @ x_t + W_hr @ h_prev + br)
     z_t = sigmoid(W_xz @ x_t + W_hz @ h_prev + bz)
     h_tilde = np.tanh(W_xh @ x_t + W_hh @ (r_t * h_prev) + bh)
-    h_t = (1 - z_t) * h_prev + z_t * h_tilde
+    h_t = (1 - z_t) * h_prev + z_t * h_tilde  # z≈0 时保留旧状态（类似 LSTM 遗忘门）
     gates = {"reset": r_t, "update": z_t, "candidate": h_tilde}
     return h_t, gates
 
@@ -36,6 +46,7 @@ def gru_forward(
     params: dict[str, np.ndarray],
     hidden_dim: int,
 ) -> tuple[list[np.ndarray], list[dict[str, np.ndarray]]]:
+    """Unroll GRU over sequence x_seq: (T, input_dim)."""
     T = x_seq.shape[0]
     h = np.zeros(hidden_dim)
     h_states, all_gates = [h.copy()], []
@@ -55,6 +66,7 @@ def gru_forward(
 
 
 def init_gru_params(input_dim: int, hidden_dim: int, seed: int = 0) -> dict[str, np.ndarray]:
+    """Initialize GRU weights (3 gate groups: r, z, and candidate h)."""
     rng = np.random.default_rng(seed)
     scale = 0.1
     params = {}

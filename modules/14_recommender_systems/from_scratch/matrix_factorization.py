@@ -1,4 +1,8 @@
-"""Matrix factorization from scratch with SGD."""
+"""Matrix factorization from scratch with SGD.
+
+Learns low-rank user (P) and item (Q) embeddings by minimizing
+squared error on observed ratings plus L2 regularization.
+"""
 
 from __future__ import annotations
 
@@ -32,6 +36,7 @@ def train_matrix_factorization(
                     continue
                 pred = P[u] @ Q[i]
                 err = ratings[u, i] - pred
+                # Save P[u] before update — Q[i] gradient uses the old user vector
                 P_u = P[u].copy()
                 P[u] += lr * (err * Q[i] - reg * P[u])
                 Q[i] += lr * (err * P_u - reg * Q[i])
@@ -42,10 +47,12 @@ def train_matrix_factorization(
 
 
 def predict(P: np.ndarray, Q: np.ndarray, user: int, item: int) -> float:
+    """Dot product of learned user and item latent vectors."""
     return float(P[user] @ Q[item])
 
 
 def top_k_recommendations(P: np.ndarray, Q: np.ndarray, user: int, k: int = 3, seen: set[int] | None = None) -> list[int]:
+    """Rank items by predicted score, excluding already-seen items."""
     scores = P[user] @ Q.T
     seen = seen or set()
     ranked = np.argsort(-scores)
