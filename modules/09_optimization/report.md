@@ -1,3 +1,33 @@
-# Report
+# 报告：Optimizer Comparison Lab
 
-Summarize the module work, experiments, and takeaways here.
+## 目标
+
+从零实现 SGD/Momentum/Adam 更新规则，在 spiral MLP 上对比优化器与学习率敏感性。
+
+## 实验结果
+
+### 优化器对比（100 epochs）
+
+| 优化器 | 学习率 | 最终准确率 |
+|--------|--------|-----------|
+| SGD | 0.5 | 78.0% |
+| Momentum | 0.1 | 91.0% |
+| Adam | 0.01 | **99.3%** |
+
+Adam 在默认 lr 下收敛最快；SGD 需要更大 lr 和 momentum 辅助。
+
+### 学习率敏感性
+
+- SGD 在 lr=0.001–0.01 几乎不学习（~33%）
+- Adam 在 lr=0.01–0.1 均表现良好（>97%）
+- Adam 在 lr=0.5 时退化（45%），说明自适应方法也并非对极大 lr 免疫
+
+## 深度检查点
+
+- [x] SGD、Momentum、Adam 从零实现
+- [x] 同模型不同优化器对照
+- [x] 学习率敏感性实验
+
+## 收获
+
+优化器选择是训练工程的核心决策之一，应结合任务、模型和调参预算。

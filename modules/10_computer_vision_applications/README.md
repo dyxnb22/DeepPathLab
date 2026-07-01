@@ -17,6 +17,6 @@ transfer learning or detection mini-project.
 
 ## Depth Checklist
 
-- [ ] Fine-tuning vs feature extraction comparison
-- [ ] Data augmentation impact experiment
-- [ ] Downstream task report
+- [x] Fine-tuning vs feature extraction comparison
+- [x] Data augmentation impact experiment
+- [x] Downstream task report

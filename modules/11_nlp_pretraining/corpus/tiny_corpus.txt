@@ -1,0 +1,8 @@
+deep learning builds representations from data
+neural networks learn useful features automatically
+word embeddings capture semantic similarity
+king queen man woman share relational structure
+natural language processing uses embeddings for text
+transformers attend to all tokens in context
+training language models requires large corpora
+skip gram predicts context from center word

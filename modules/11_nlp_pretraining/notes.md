@@ -1,11 +1,32 @@
-# Notes
+# 笔记：NLP 预训练
 
-## Core Question
+## 核心问题
 
 Word2Vec 和 BERT 分别学到了什么类型的语言知识？
 
-## Learning Goals
+## Word2Vec / Skip-gram
 
-- 分布式假设与上下文预测
-- 静态嵌入 vs 上下文嵌入
-- 预训练目标设计（MLM, NSP 等）
+用中心词预测上下文（或反之），学到**静态词向量**：
+
+- 语义相近的词向量距离近
+- 可捕获类比关系（king - man + woman ≈ queen）
+
+## BERT / MLM
+
+随机 mask 部分 token，用双向上下文预测被 mask 的词：
+
+- 学到**上下文相关表示**
+- 同一词在不同句子中向量不同（需通过模型前向计算）
+
+## 对比
+
+| | Word2Vec | BERT/MLM |
+|---|----------|----------|
+| 表示 | 静态嵌入 | 上下文动态 |
+| 训练目标 | 局部窗口共现 | 全句 mask 预测 |
+| 复杂度 | 低 | 高 |
+
+## 本模块实验
+
+- Skip-gram 从零训练 + PCA 可视化
+- Tiny MLM 演示 mask 预测

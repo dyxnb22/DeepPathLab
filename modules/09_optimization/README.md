@@ -17,6 +17,6 @@ optimizer comparison lab across earlier modules.
 
 ## Depth Checklist
 
-- [ ] SGD, Momentum, Adam implementations or wrappers
-- [ ] Same model trained with different optimizers
-- [ ] Learning rate sensitivity analysis
+- [x] SGD, Momentum, Adam implementations or wrappers
+- [x] Same model trained with different optimizers
+- [x] Learning rate sensitivity analysis

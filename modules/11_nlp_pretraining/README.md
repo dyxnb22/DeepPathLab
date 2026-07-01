@@ -17,6 +17,6 @@ embedding or masked language modeling project.
 
 ## Depth Checklist
 
-- [ ] Word embedding training (skip-gram or similar)
-- [ ] Embedding visualization (analogy / nearest neighbors)
-- [ ] Tiny MLM or pretraining experiment
+- [x] Word embedding training (skip-gram or similar)
+- [x] Embedding visualization (analogy / nearest neighbors)
+- [x] Tiny MLM or pretraining experiment

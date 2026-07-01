@@ -61,12 +61,24 @@ AI tooling can help with scaffolding, tests, refactors, and documentation, but i
 
 ## Current Modules
 
-- 01 Preliminaries & Autograd
-- 02 Linear Models
-- 03 Multilayer Perceptrons
-- 04 Convolutional Neural Networks
+All 12 core modules are implemented under [modules](modules/):
 
-Each module lives under [modules](/Users/diaoyuxuan/DeepPathLab/modules) and follows the same structure:
+| # | Module | Project |
+|---|--------|---------|
+| 01 | Preliminaries & Autograd | mini autograd engine |
+| 02 | Linear Models | regression + softmax playground |
+| 03 | Multilayer Perceptrons | MLP trainer with diagnostics |
+| 04 | Convolutional Neural Networks | LeNet + conv from scratch |
+| 05 | Modern CNN | plain vs ResNet benchmark |
+| 06 | RNN | character-level generator |
+| 07 | LSTM & GRU | copy problem + gated RNN |
+| 08 | Attention & Transformer | mini transformer + attention viz |
+| 09 | Optimization | optimizer comparison lab |
+| 10 | Computer Vision Applications | transfer learning + augmentation |
+| 11 | NLP Pretraining | skip-gram + tiny MLM |
+| 12 | NLP Applications | sentiment classification |
+
+Each module follows the same structure:
 
 - `notes.md` for personal notes
 - `report.md` for the final summary
@@ -74,20 +86,7 @@ Each module lives under [modules](/Users/diaoyuxuan/DeepPathLab/modules) and fol
 - `from_scratch/` for original implementations
 - `experiments/` for ablations and analysis
 
-Each module should also have a clear practical project identity. Examples:
-
-- `01 Preliminaries & Autograd`: build a mini autograd engine
-- `02 Linear Models`: build a compact linear-model playground
-- `03 Multilayer Perceptrons`: build a tiny MLP trainer with diagnostics
-- `04 Convolutional Neural Networks`: build a LeNet-style image classifier with visual analysis
-
-Later modules should continue the same pattern, especially for NLP:
-
-- RNN or LSTM text generator
-- attention visualization project
-- mini transformer language model
-- text classification or retrieval project
-- lightweight pretraining or fine-tuning study
+See [TASKS.md](TASKS.md) for module status and [docs/roadmap.md](docs/roadmap.md) for future extensions (RL, Recommender Systems).
 
 ## Clean Reference Policy
 

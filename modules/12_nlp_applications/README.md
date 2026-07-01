@@ -17,6 +17,6 @@ text classification, retrieval, or sequence labeling project.
 
 ## Depth Checklist
 
-- [ ] At least one downstream task end-to-end
-- [ ] Fine-tuning vs training from scratch comparison
-- [ ] Error analysis on NLP predictions
+- [x] At least one downstream task end-to-end
+- [x] Fine-tuning vs training from scratch comparison
+- [x] Error analysis on NLP predictions
