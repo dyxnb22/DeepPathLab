@@ -51,3 +51,19 @@ python3 modules/15_reinforcement_learning/experiments/epsilon_decay.py
 
 - 本模块为**表格型** Q-learning，仅适用于小状态空间
 - 大状态空间需函数逼近（DQN 等）
+
+## 常见踩坑
+
+1. **终止状态仍 bootstrap**：`done=True` 时 TD 目标应为 `r`，不能加 \(\gamma \max Q(s')\)
+2. **ε 过小过早**：探索不足会卡在次优策略；本环境小，固定低 ε 也可能够用
+3. **学习率 α 过大**：Q 值振荡不收敛；过小则学习极慢
+4. **奖励尺度**：步惩罚与 goal 奖励量级影响策略偏好（更短路径 vs 更保守）
+5. **离策略 vs 同策略**：Q-learning 用 max 是贪心 bootstrap；SARSA 用实际下一动作
+
+## 自检问题
+
+1. 写出 Q-learning 更新式，并说明每一项的含义。
+2. 为什么需要 \(\epsilon\)-greedy？纯贪心在训练初期会怎样？
+3. GridWorld 中状态如何编码为一维索引？墙碰撞时状态如何变化？
+4. \(\gamma=0\) 与 \(\gamma \to 1\) 对策略有何不同影响？
+5. 表格法无法扩展到 Atari 等高维状态，下一步通常用什么方法？

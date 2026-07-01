@@ -1,5 +1,9 @@
 # DeepPath Lab
 
+> 项目制深度学习学习仓库：从零实现、复现基线、实验对照、笔记与报告。
+
+**中文入门**：[docs/getting-started.md](docs/getting-started.md) · [学习进度清单](docs/study-checklist.md) · [模块索引](modules/README.md)
+
 > A project-based roadmap for learning modern deep learning from scratch through implementations, reproductions, experiments, visualizations, and reports.
 
 DeepPath Lab is a long-term learning repository built around doing the work, not just reading about it. Each module is meant to become a small but real standalone project that teaches one core idea through personal notes, a reproduction baseline, a from-scratch implementation, targeted experiments, and a short report.
@@ -11,10 +15,11 @@ This repository is not a textbook mirror. It uses public resources such as Dive 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-python3 scripts/verify_all.py   # 15/15 模块快速自检
+python3 scripts/verify_all.py   # 15/15 模块 smoke test
+python3 scripts/run_tests.py      # 核心算法单元测试
 ```
 
-Then follow each module's `README.md`, or use the full walkthrough in [docs/learning-guide.md](docs/learning-guide.md).
+Then read [docs/getting-started.md](docs/getting-started.md), follow each module's `README.md`, or use [docs/learning-guide.md](docs/learning-guide.md).
 
 ```text
 Read reference chapter
@@ -105,15 +110,18 @@ DeepPath Lab does not copy external textbook chapters. It only links to external
 
 See the supporting docs:
 
-- [AGENTS.md](/Users/diaoyuxuan/DeepPathLab/AGENTS.md)
-- [TASKS.md](/Users/diaoyuxuan/DeepPathLab/TASKS.md)
-- [docs/learning-sources.md](/Users/diaoyuxuan/DeepPathLab/docs/learning-sources.md)
-- [docs/d2l-mapping.md](/Users/diaoyuxuan/DeepPathLab/docs/d2l-mapping.md)
-- [docs/agent-execution.md](/Users/diaoyuxuan/DeepPathLab/docs/agent-execution.md)
+- [AGENTS.md](AGENTS.md)
+- [TASKS.md](TASKS.md)
+- [docs/getting-started.md](docs/getting-started.md) — **推荐首读**：环境、路线图、单模块流程
+- [docs/study-checklist.md](docs/study-checklist.md) — 15 模块学习进度清单
 - [docs/learning-guide.md](docs/learning-guide.md) — 15 模块运行命令与学习路径
+- [modules/README.md](modules/README.md) — 模块索引
 - [lib/README.md](lib/README.md) — 共享工具说明
-- [docs/module-template.md](/Users/diaoyuxuan/DeepPathLab/docs/module-template.md)
-- [docs/report-template.md](/Users/diaoyuxuan/DeepPathLab/docs/report-template.md)
+- [docs/learning-sources.md](docs/learning-sources.md)
+- [docs/d2l-mapping.md](docs/d2l-mapping.md)
+- [docs/agent-execution.md](docs/agent-execution.md)
+- [docs/module-template.md](docs/module-template.md)
+- [docs/report-template.md](docs/report-template.md)
 
 ## Suggested Standard For Module Completion
 

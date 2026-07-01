@@ -12,7 +12,7 @@ The high-level objective is to move from deep learning fundamentals toward pract
 
 ## Per-Module Workflow
 
-1. Read the mapped external references in [d2l-mapping.md](/Users/diaoyuxuan/DeepPathLab/docs/d2l-mapping.md).
+1. Read the mapped external references in [d2l-mapping.md](d2l-mapping.md).
 2. Update the module `README.md` if the scope becomes clearer.
 3. Write or refine `notes.md` in original language.
 4. Add one minimal reproduction artifact under `reproduce/`.

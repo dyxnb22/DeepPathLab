@@ -64,9 +64,17 @@ See [lib/README.md](../lib/README.md) for `gradient_check`, `plotting`, and `syn
 ## Verification
 
 ```bash
-python3 scripts/verify_all.py          # all modules
+python3 scripts/verify_all.py          # smoke test: all modules
+python3 scripts/run_tests.py           # unit tests: core algorithms
+python3 scripts/run_module.py 08       # run one module's key script
 python3 scripts/verify_all.py --only 13 14 15   # subset
 ```
+
+## 学习文档
+
+- [getting-started.md](getting-started.md) — 入门指南（环境、路线图、单模块流程）
+- [study-checklist.md](study-checklist.md) — 可勾选的学习进度清单
+- [../modules/README.md](../modules/README.md) — 模块索引
 
 ## Further Reading
 

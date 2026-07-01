@@ -44,3 +44,19 @@ python3 modules/13_nlp_fine_tuning/experiments/freeze_vs_finetune.py
 - 小数据全量微调 → 灾难性遗忘
 - 冻结过度 → 表达能力不足
 - 验证集过小 → 指标波动大，需早停与更大验证集
+
+## 常见踩坑
+
+1. **词表不一致**：预训练嵌入行数必须与当前 `vocab` 对齐；OOV 词需随机初始化或 `<unk>` 行
+2. **学习率不分层**：预训练层与分类头共用过大 lr 容易破坏已有表示
+3. **忘记 `eval()` / `train()` 模式**：Dropout、BatchNorm 在验证阶段行为不同
+4. **只看训练 loss**：小验证集上 val acc 抖动大，应以验证曲线 + 早停为准
+5. **冻结后仍更新嵌入**：需显式 `requires_grad=False` 或优化器 param group 排除
+
+## 自检问题
+
+1. 数据极少时，你会选 linear probe、partial 还是 full fine-tune？理由是什么？
+2. 预训练嵌入 lr 为什么通常比分类头小一个数量级？
+3. `freeze_vs_finetune.py` 里三种策略的参数更新范围有何不同？
+4. 什么是灾难性遗忘？本模块实验里哪种策略最容易出现？
+5. 若下游任务与预训练语料领域差异很大，冻结策略可能失败的原因是什么？

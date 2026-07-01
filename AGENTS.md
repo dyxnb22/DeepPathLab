@@ -20,10 +20,11 @@ Each module should also have a recognizable project identity, such as a mini eng
 
 Read these files in order before making substantial changes:
 
-1. [README.md](/Users/diaoyuxuan/DeepPathLab/README.md)
-2. [docs/agent-execution.md](/Users/diaoyuxuan/DeepPathLab/docs/agent-execution.md)
-3. [docs/d2l-mapping.md](/Users/diaoyuxuan/DeepPathLab/docs/d2l-mapping.md)
-4. [TASKS.md](/Users/diaoyuxuan/DeepPathLab/TASKS.md)
+1. [README.md](README.md)
+2. [docs/getting-started.md](docs/getting-started.md)
+3. [docs/agent-execution.md](docs/agent-execution.md)
+4. [docs/d2l-mapping.md](docs/d2l-mapping.md)
+5. [TASKS.md](TASKS.md)
 
 ## Core Rules
 
