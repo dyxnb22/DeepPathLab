@@ -6,11 +6,15 @@ Every module in the queue should be treated as a standalone learning project, no
 
 ## Priority Order
 
-1. Finish `01_preliminaries_autograd`
-2. Finish `02_linear_models`
-3. Finish `03_mlp`
-4. Finish `04_cnn`
-5. Create later modules only after the first four have meaningful content
+1. ~~Finish `01_preliminaries_autograd`~~ (done)
+2. ~~Finish `02_linear_models`~~ (done)
+3. ~~Finish `03_mlp`~~ (done)
+4. ~~Finish `04_cnn`~~ (done)
+5. ~~Build `05_modern_cnn`~~ (done)
+6. ~~Build `06_rnn`~~ (done)
+7. ~~Build `07_lstm_gru`~~ (done)
+8. ~~Build `08_attention_transformer`~~ (done)
+9. Build `09_optimization` through `12_nlp_applications`
 
 ## Definition Of Meaningful Progress
 

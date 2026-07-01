@@ -1,0 +1,114 @@
+"""Vanilla RNN from scratch with forward pass and truncated BPTT."""
+
+from __future__ import annotations
+
+import numpy as np
+
+
+def rnn_forward(
+    x_seq: np.ndarray,
+    W_xh: np.ndarray,
+    W_hh: np.ndarray,
+    b_h: np.ndarray,
+    W_hy: np.ndarray,
+    b_y: np.ndarray,
+) -> tuple[list[np.ndarray], list[np.ndarray], np.ndarray]:
+    """Forward pass for a single sequence.
+
+    x_seq: (T, input_dim)
+    Returns: hidden_states (length T+1), outputs (length T), final_logits
+    """
+    T = x_seq.shape[0]
+    hidden_dim = W_hh.shape[0]
+    h = np.zeros(hidden_dim)
+    hidden_states = [h.copy()]
+    outputs = []
+
+    for t in range(T):
+        h = np.tanh(W_xh @ x_seq[t] + W_hh @ h + b_h)
+        hidden_states.append(h.copy())
+        y = W_hy @ h + b_y
+        outputs.append(y)
+
+    return hidden_states, outputs, outputs[-1]
+
+
+def rnn_backward_full(
+    x_seq: np.ndarray,
+    hidden_states: list[np.ndarray],
+    outputs: list[np.ndarray],
+    targets: np.ndarray,
+    W_xh: np.ndarray,
+    W_hh: np.ndarray,
+    W_hy: np.ndarray,
+) -> tuple[dict[str, np.ndarray], float, float]:
+    """BPTT with per-timestep CE loss; returns grads, loss, |dh_0|."""
+    T = x_seq.shape[0]
+    hidden_dim = W_hh.shape[0]
+    output_dim = W_hy.shape[0]
+
+    dW_xh = np.zeros_like(W_xh)
+    dW_hh = np.zeros_like(W_hh)
+    db_h = np.zeros(hidden_dim)
+    dW_hy = np.zeros_like(W_hy)
+    db_y = np.zeros(output_dim)
+
+    total_loss = 0.0
+    dh = np.zeros(hidden_dim)
+
+    for t in reversed(range(T)):
+        logits = outputs[t]
+        probs = np.exp(logits - np.max(logits))
+        probs /= probs.sum()
+        target = int(targets[t])
+        one_hot = np.zeros_like(probs)
+        one_hot[target] = 1.0
+        dy = probs - one_hot
+        total_loss += float(-np.log(probs[target] + 1e-12))
+
+        dW_hy += np.outer(dy, hidden_states[t + 1])
+        db_y += dy
+        dh = W_hy.T @ dy + dh
+
+        h = hidden_states[t + 1]
+        h_prev = hidden_states[t]
+        dtanh = dh * (1 - h * h)
+        dW_xh += np.outer(dtanh, x_seq[t])
+        dW_hh += np.outer(dtanh, h_prev)
+        db_h += dtanh
+        dh = W_hh.T @ dtanh
+
+    grads = {"W_xh": dW_xh, "W_hh": dW_hh, "b_h": db_h, "W_hy": dW_hy, "b_y": db_y}
+    return grads, total_loss / T, float(np.linalg.norm(dh))
+
+
+def sequence_copy_task(seq_len: int = 5, vocab_size: int = 4, seed: int = 0) -> tuple[np.ndarray, np.ndarray]:
+    """Encode symbol at step 0, predict it at every step (forces long-range BPTT)."""
+    rng = np.random.default_rng(seed)
+    symbol = rng.integers(0, vocab_size)
+    x_seq = np.zeros((seq_len, vocab_size))
+    x_seq[0, symbol] = 1.0
+    targets = np.full(seq_len, symbol)
+    return x_seq, targets
+
+
+if __name__ == "__main__":
+    vocab_size = 4
+    seq_len = 8
+    input_dim = vocab_size
+    hidden_dim = 16
+    rng = np.random.default_rng(42)
+
+    W_xh = rng.normal(scale=0.1, size=(hidden_dim, input_dim))
+    W_hh = rng.normal(scale=0.1, size=(hidden_dim, hidden_dim))
+    b_h = np.zeros(hidden_dim)
+    W_hy = rng.normal(scale=0.1, size=(vocab_size, hidden_dim))
+    b_y = np.zeros(vocab_size)
+
+    x_seq, targets = sequence_copy_task(seq_len, vocab_size)
+    hidden_states, outputs, _ = rnn_forward(x_seq, W_xh, W_hh, b_h, W_hy, b_y)
+    grads, loss, dh0_norm = rnn_backward_full(
+        x_seq, hidden_states, outputs, targets, W_xh, W_hh, W_hy
+    )
+    print(f"Sequence length: {seq_len}, initial loss: {loss:.4f}, |dh_0|={dh0_norm:.6f}")
+    print(f"Gradient norms: W_hh={np.linalg.norm(grads['W_hh']):.4f}, W_xh={np.linalg.norm(grads['W_xh']):.4f}")

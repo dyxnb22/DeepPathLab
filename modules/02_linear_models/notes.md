@@ -1,11 +1,44 @@
-# Notes
+# 笔记：线性模型
 
-Write original notes here.
+## 回归 vs 分类
 
-Suggested topics:
+**线性回归**预测连续值，假设关系是特征的线性组合加偏置：`y = Xw + b`。损失用均方误差（MSE），衡量预测与真值的平方距离。
 
-- regression vs. classification
-- loss functions
-- gradient descent basics
-- softmax intuition
-- overfitting in simple models
+**Softmax 回归**（多类逻辑回归）预测类别概率。先算 logits `z = XW + b`，再经 softmax 转为概率分布。损失用交叉熵，衡量预测分布与真实 one-hot 标签的差异。
+
+两者共享「线性变换 + 损失函数 + 梯度下降」的训练范式，区别在输出空间和损失选择。
+
+## 解析解 vs 梯度下降
+
+线性回归有闭式解（正规方程）：
+
+\[
+\hat{\theta} = (X^T X)^{-1} X^T y
+\]
+
+当特征数不大时，解析解精确且快速。梯度下降是迭代近似，但在大数据或在线场景更实用，且能推广到无闭式解的分类问题。
+
+## Softmax 数值稳定
+
+直接计算 `exp(z_i) / sum(exp(z_j))` 在 `z` 很大时会溢出。标准做法是减去最大值：
+
+\[
+\text{softmax}(z_i) = \frac{e^{z_i - \max(z)}}{\sum_j e^{z_j - \max(z)}}
+\]
+
+减常数不改变结果，但把指数 argument 压到安全范围。
+
+## 梯度推导要点
+
+- MSE 对 `w` 的梯度：`(2/n) X^T (y_pred - y)`
+- 交叉熵 + softmax 组合后，对 logits 的梯度简化为 `(probs - one_hot) / n`
+
+这个简洁形式是 softmax 回归实现的核心。
+
+## 偏差-方差与过拟合
+
+线性模型容量有限，在高维小样本上仍可能过拟合。早期信号：训练 loss 持续下降但验证 loss 上升。本模块用合成数据，主要观察学习率对收敛的影响。
+
+## 与 Module 01 的联系
+
+线性模型的梯度下降本质是链式法则的应用。可用 Module 01 的标量 autograd 对单样本 MSE 验证手写梯度是否正确。
