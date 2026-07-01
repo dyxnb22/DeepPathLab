@@ -10,7 +10,9 @@ Every module in the queue should be treated as a standalone learning project, no
 2. ~~Finish `02_linear_models`~~ (done)
 3. ~~Finish `03_mlp`~~ (done)
 4. ~~Finish `04_cnn`~~ (done)
-5. Build `05_modern_cnn` through `12_nlp_applications` using the scaffolds now in place
+5. ~~Build `05_modern_cnn`~~ (done)
+6. ~~Build `06_rnn`~~ (done)
+7. Build `07_lstm_gru` through `12_nlp_applications`
 
 ## Definition Of Meaningful Progress
 

@@ -21,7 +21,7 @@ image classification benchmark comparing classic CNN families.
 
 ## Depth Checklist
 
-- [ ] Plain vs residual network training curves on same dataset
-- [ ] Notes explain skip connection gradient highway intuition
-- [ ] Architecture comparison table (params, depth, accuracy)
-- [ ] Report records which design choices mattered most
+- [x] Plain vs residual network training curves on same dataset
+- [x] Notes explain skip connection gradient highway intuition
+- [x] Architecture comparison table (params, depth, accuracy)
+- [x] Report records which design choices mattered most

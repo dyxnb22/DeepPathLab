@@ -17,6 +17,6 @@ character-level text generator or simple sequence predictor.
 
 ## Depth Checklist
 
-- [ ] Minimal RNN forward + BPTT implementation
-- [ ] Loss and gradient norm vs sequence length experiment
-- [ ] Character-level generation demo
+- [x] Minimal RNN forward + BPTT implementation
+- [x] Loss and gradient norm vs sequence length experiment
+- [x] Character-level generation demo
