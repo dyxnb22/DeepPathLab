@@ -17,6 +17,6 @@ gated sequence modeling for text or time series.
 
 ## Depth Checklist
 
-- [ ] LSTM and GRU cell from scratch
-- [ ] Copy problem or long-range synthetic task
-- [ ] Gated vs vanilla RNN comparison
+- [x] LSTM and GRU cell from scratch
+- [x] Copy problem or long-range synthetic task
+- [x] Gated vs vanilla RNN comparison

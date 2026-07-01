@@ -17,6 +17,6 @@ attention visualization and mini transformer language model.
 
 ## Depth Checklist
 
-- [ ] Scaled dot-product attention from scratch
-- [ ] Attention weight visualization
-- [ ] Mini transformer on toy sequence task
+- [x] Scaled dot-product attention from scratch
+- [x] Attention weight visualization
+- [x] Mini transformer on toy sequence task
