@@ -61,7 +61,7 @@ AI tooling can help with scaffolding, tests, refactors, and documentation, but i
 
 ## Current Modules
 
-All 12 core modules are implemented under [modules](modules/):
+All 15 modules are implemented under [modules](modules/):
 
 | # | Module | Project |
 |---|--------|---------|
@@ -77,6 +77,9 @@ All 12 core modules are implemented under [modules](modules/):
 | 10 | Computer Vision Applications | transfer learning + augmentation |
 | 11 | NLP Pretraining | skip-gram + tiny MLM |
 | 12 | NLP Applications | sentiment classification |
+| 13 | NLP Fine-Tuning | freeze vs fine-tune strategies |
+| 14 | Recommender Systems | matrix factorization |
+| 15 | Reinforcement Learning | gridworld Q-learning |
 
 Each module follows the same structure:
 
@@ -86,7 +89,7 @@ Each module follows the same structure:
 - `from_scratch/` for original implementations
 - `experiments/` for ablations and analysis
 
-See [TASKS.md](TASKS.md) for module status and [docs/roadmap.md](docs/roadmap.md) for future extensions (RL, Recommender Systems).
+See [TASKS.md](TASKS.md) for module status. Optional Track G extensions (diffusion, GANs) remain future work.
 
 ## Clean Reference Policy
 

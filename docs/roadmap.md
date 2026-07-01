@@ -49,6 +49,8 @@ The intent is not just to read through topics in order. Each module should becom
 | 14 | Recommender Systems | Track F | neural or factorization-based recommendation mini-project |
 | 15 | Reinforcement Learning | Track F | compact control or policy-learning project |
 
+All modules above are **implemented** in `modules/`.
+
 ## Alignment Rule
 
 The route should stay coherent:
